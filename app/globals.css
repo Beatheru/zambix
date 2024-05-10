@@ -2,32 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+input[aria-invalid="true"] {
+  @apply border-red-500 focus:border-red-500;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 262 0% 95%;
+    --foreground: 262 0% 0%;
+    --card: 262 0% 90%;
+    --card-foreground: 262 0% 10%;
+    --popover: 262 0% 95%;
+    --popover-foreground: 262 95% 0%;
+    --primary: 262 78% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 262 10% 70%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 224 10% 85%;
+    --muted-foreground: 262 0% 35%;
+    --accent: 224 10% 80%;
+    --accent-foreground: 262 0% 10%;
+    --destructive: 0 50% 30%;
+    --destructive-foreground: 262 0% 90%;
+    --border: 262 20% 50%;
+    --input: 262 20% 18%;
+    --ring: 262 78% 50%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 262 10% 5%;
+    --foreground: 262 0% 90%;
+    --card: 262 0% 0%;
+    --card-foreground: 262 0% 90%;
+    --popover: 262 10% 5%;
+    --popover-foreground: 262 0% 90%;
+    --primary: 262 78% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 262 10% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 224 10% 15%;
+    --muted-foreground: 262 0% 60%;
+    --accent: 224 10% 15%;
+    --accent-foreground: 262 0% 90%;
+    --destructive: 0 50% 30%;
+    --destructive-foreground: 262 0% 90%;
+    --border: 262 20% 18%;
+    --input: 262 20% 18%;
+    --ring: 262 78% 50%;
+    --radius: 0.75rem;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }

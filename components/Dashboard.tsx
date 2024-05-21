@@ -22,7 +22,7 @@ const Dashboard = async () => {
   const tickets = await getTickets();
 
   return (
-    <div className="p-5 pt-24">
+    <div className="p-5">
       <div className="mb-4 flex justify-between">
         <div className="text-3xl font-bold">My Tickets</div>
 

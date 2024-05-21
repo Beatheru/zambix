@@ -9,7 +9,7 @@ import { signOut } from "next-auth/react";
 
 const Nav = () => {
   return (
-    <nav className="fixed top-0 z-50 flex w-full items-center gap-3 border-b bg-background p-4">
+    <nav className="sticky top-0 z-50 flex w-full items-center gap-3 border-b bg-background p-4">
       <Link href="/">
         <Button className="flex gap-2">
           <FontAwesomeIcon icon={faHome} className="icon" />

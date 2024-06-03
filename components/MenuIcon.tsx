@@ -7,8 +7,8 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { deleteTicket } from "@/lib/actions";
+import { useTicketStore } from "@/lib/store";
 import { Ellipsis } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 interface Props {
@@ -17,17 +17,17 @@ interface Props {
 }
 
 const MenuIcon = ({ id, openTicketModal }: Props) => {
-  const router = useRouter();
+  const deleteTicketFromStore = useTicketStore((state) => state.deleteTicket);
 
   const handleDelete = async () => {
-    /* const err = await deleteTicket(id);
+    const err = await deleteTicket(id);
     if (!err) {
-      router.refresh();
+      deleteTicketFromStore(id);
       return;
     }
 
     console.log(err);
-    toast.error("Failed to delete, please try again"); */
+    toast.error("Failed to delete, please try again");
   };
 
   return (

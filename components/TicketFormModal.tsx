@@ -38,6 +38,7 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { priorities, statuses } from "@/constants";
 import { createTicket, editTicket, searchUsers } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import { ticketFormSchema } from "@/models/FormSchema";
@@ -61,9 +62,6 @@ interface Props {
 const TicketFormModal = ({ open, setOpen, ticket }: Props) => {
   const isEditing = !!ticket;
   const router = useRouter();
-
-  const priorities = ["Low", "Medium", "High"];
-  const statuses = ["Not Started", "Started", "Done"];
 
   const [userListOpen, setUserListOpen] = useState(false);
   const [userListLoading, setUserListLoading] = useState(false);
@@ -278,8 +276,8 @@ const TicketFormModal = ({ open, setOpen, ticket }: Props) => {
                         </FormControl>
                         <SelectContent>
                           {priorities.map((priority, i) => (
-                            <SelectItem key={i} value={priority}>
-                              {priority}
+                            <SelectItem key={i} value={priority.value}>
+                              {priority.value}
                             </SelectItem>
                           ))}
                         </SelectContent>

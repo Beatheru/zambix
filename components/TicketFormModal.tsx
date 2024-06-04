@@ -39,7 +39,13 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { priorities, statuses } from "@/constants";
-import { createTicket, editTicket, searchUsers } from "@/lib/actions";
+import {
+  createTicket,
+  editTicket,
+  getTickets,
+  searchUsers
+} from "@/lib/actions";
+import { useTicketStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { ticketFormSchema } from "@/models/FormSchema";
 import { Ticket } from "@/models/Ticket";
@@ -47,6 +53,7 @@ import { faCheck, faSort } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CommandList } from "cmdk";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -62,7 +69,8 @@ interface Props {
 
 const TicketFormModal = ({ open, setOpen, ticket, initialState }: Props) => {
   const isEditing = !!ticket;
-  const router = useRouter();
+  const setTickets = useTicketStore((state) => state.setTickets);
+  const { data: session } = useSession();
 
   const [userListOpen, setUserListOpen] = useState(false);
   const [userListLoading, setUserListLoading] = useState(false);
@@ -103,6 +111,10 @@ const TicketFormModal = ({ open, setOpen, ticket, initialState }: Props) => {
       toast.error("Failed to save, please try again");
       return;
     }
+
+    const tickets = await getTickets(session!.user.username!);
+    setTickets(tickets);
+    setOpen(false);
   };
 
   useEffect(() => {

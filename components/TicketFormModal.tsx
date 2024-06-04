@@ -57,9 +57,10 @@ interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
   ticket?: Ticket;
+  initialState?: Partial<Ticket>;
 }
 
-const TicketFormModal = ({ open, setOpen, ticket }: Props) => {
+const TicketFormModal = ({ open, setOpen, ticket, initialState }: Props) => {
   const isEditing = !!ticket;
   const router = useRouter();
 
@@ -70,11 +71,13 @@ const TicketFormModal = ({ open, setOpen, ticket }: Props) => {
   const form = useForm<z.infer<typeof ticketFormSchema>>({
     resolver: zodResolver(ticketFormSchema),
     defaultValues: {
-      title: ticket?.title ?? "",
-      assignTo: ticket?.assignTo ?? [],
-      description: ticket?.description ?? "",
-      priority: ticket?.priority ?? "",
-      status: ticket?.status ?? ""
+      title: isEditing ? ticket?.title : initialState?.title ?? "",
+      assignTo: isEditing ? ticket?.assignTo : initialState?.assignTo ?? [],
+      description: isEditing
+        ? ticket?.description
+        : initialState?.description ?? "",
+      priority: isEditing ? ticket?.priority : initialState?.priority ?? "",
+      status: isEditing ? ticket?.status : initialState?.status ?? ""
     }
   });
 

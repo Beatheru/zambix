@@ -7,6 +7,16 @@ import { ticketFormSchema } from "@/models/FormSchema";
 import { registerFormSchema } from "@/models/FormSchema";
 import { User } from "@/models/User";
 
+export const getTickets = async (username: string) => {
+  const res = await Ticket.find<Ticket>({
+    assignTo: username
+  });
+
+  const tickets = res.map((ticket) => JSON.parse(JSON.stringify(ticket)));
+
+  return tickets;
+};
+
 export const createTicket = async (
   form: z.infer<typeof ticketFormSchema>
 ): Promise<string | null> => {
@@ -44,12 +54,8 @@ export const deleteTicket = async (id: string): Promise<string | null> => {
 export const searchUsers = async (username: string): Promise<string[]> => {
   try {
     if (username.length > 0) {
-      const users = (
-        await User.find<User>({
-          username
-        })
-      ).map((user) => user.username);
-      return users;
+      const users = (await User.find<User>({})).map((user) => user.username);
+      return users.filter((user) => user.includes(username));
     } else {
       const users = (await User.find<User>()).map((user) => user.username);
       return users;

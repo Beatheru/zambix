@@ -1,48 +1,59 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/options";
-import TicketCard from "@/components/TicketCard";
-import { Ticket } from "@/models/Ticket";
-import { getServerSession } from "next-auth";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTicket } from "@fortawesome/free-solid-svg-icons";
+"use client";
 
-const getTickets = async () => {
-  const session = await getServerSession(authOptions);
-  const res = await Ticket.find<Ticket>({
-    assignTo: session?.user.username
-  });
+import KanbanColumn from "@/components/KanbanColumn";
+import Spinner from "@/components/Spinner";
+import { statuses } from "@/constants";
+import { getTickets } from "@/lib/actions";
+import { MouseSensor, TouchSensor } from "@/lib/sensors";
+import { useTicketStore } from "@/lib/store";
+import { DndContext, DragEndEvent, useSensor, useSensors } from "@dnd-kit/core";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
-  const tickets = res.map((ticket) => JSON.parse(JSON.stringify(ticket)));
+const Dashboard = () => {
+  const tickets = useTicketStore((state) => state.tickets);
+  const setTickets = useTicketStore((state) => state.setTickets);
+  const { data: session } = useSession();
+  const [loading, setLoading] = useState(true);
 
-  return tickets;
-};
+  const mouseSensor = useSensor(MouseSensor);
+  const touchSensor = useSensor(TouchSensor);
+  const sensors = useSensors(mouseSensor, touchSensor);
 
-const Dashboard = async () => {
-  const tickets = await getTickets();
+  useEffect(() => {
+    if (session?.user.username) {
+      getTickets(session.user.username).then((data) => {
+        setTickets(data);
+        setLoading(false);
+      });
+    }
+  }, [session, setTickets]);
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    console.log(active, over);
+  };
+
+  if (loading)
+    return (
+      <div className="flex flex-grow items-center justify-center">
+        <Spinner size={50} />
+      </div>
+    );
 
   return (
-    <div className="p-5">
-      <div className="mb-4 flex justify-between">
-        <div className="text-3xl font-bold">My Tickets</div>
-
-        <Link href="/new">
-          <Button className="flex gap-2">
-            <FontAwesomeIcon icon={faTicket} className="icon" />
-            <div>New Ticket</div>
-          </Button>
-        </Link>
+    <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+      <div className="flex flex-grow items-center justify-center gap-5">
+        {statuses.map((status, index) => (
+          <KanbanColumn
+            key={index}
+            id={index}
+            status={status}
+            tickets={tickets.filter((ticket) => ticket.status === status)}
+          />
+        ))}
       </div>
-      <div>
-        {tickets && (
-          <div className="flex flex-wrap gap-4">
-            {tickets.map((ticket, index) => (
-              <TicketCard key={index} ticket={ticket} />
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
+    </DndContext>
   );
 };
 

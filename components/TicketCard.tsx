@@ -45,7 +45,7 @@ const TicketCard = ({ ticket }: Props) => {
   return (
     <>
       <div
-        className="relative mb-4 w-[250px] rounded-sm border-none bg-zinc-950 p-4 hover:bg-primary"
+        className="relative mb-4 w-[250px] rounded-sm border-none bg-background p-4 hover:bg-primary"
         ref={setNodeRef}
         style={style}
         {...listeners}

@@ -23,7 +23,7 @@ const KanbanColumn = ({ id, status, tickets }: Props) => {
       <div className="flex w-[90%] items-center justify-between">
         <div className="flex items-center gap-2 font-bold">
           <div className="text-primary"> {status} </div>
-          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-sm">
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-sm">
             {tickets.length}
           </div>
         </div>

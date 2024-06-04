@@ -3,7 +3,7 @@
 import KanbanColumn from "@/components/KanbanColumn";
 import Spinner from "@/components/Spinner";
 import { statuses } from "@/constants";
-import { getTickets } from "@/lib/actions";
+import { editTicket, getTickets } from "@/lib/actions";
 import { MouseSensor, TouchSensor } from "@/lib/sensors";
 import { useTicketStore } from "@/lib/store";
 import { DndContext, DragEndEvent, useSensor, useSensors } from "@dnd-kit/core";
@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 const Dashboard = () => {
   const tickets = useTicketStore((state) => state.tickets);
   const setTickets = useTicketStore((state) => state.setTickets);
+  const updateTicket = useTicketStore((state) => state.updateTicket);
   const { data: session } = useSession();
   const [loading, setLoading] = useState(true);
 
@@ -31,7 +32,15 @@ const Dashboard = () => {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    console.log(active, over);
+
+    const ticket = active.data.current!.ticket;
+    const columnStatus = over?.data.current?.status;
+
+    if (ticket && columnStatus && ticket.status !== columnStatus) {
+      ticket.status = columnStatus;
+      editTicket(ticket._id, ticket);
+      updateTicket(ticket);
+    }
   };
 
   if (loading)

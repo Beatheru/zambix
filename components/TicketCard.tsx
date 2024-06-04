@@ -15,7 +15,7 @@ const TicketCard = ({ ticket }: Props) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: ticket._id,
     data: {
-      ticketId: ticket._id
+      ticket: ticket
     }
   });
 

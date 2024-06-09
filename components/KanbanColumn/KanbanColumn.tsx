@@ -33,8 +33,8 @@ const KanbanColumn = ({ id, status, tickets }: Props) => {
       <div
         ref={setNodeRef}
         className={cn(
-          "m-2 flex h-full flex-col items-center rounded-sm bg-zinc-900 p-3",
-          isOver ? "border border-dashed border-primary" : ""
+          "m-2 flex h-full flex-col items-center rounded-sm border border-dashed bg-zinc-900 p-3",
+          isOver ? "border-primary" : "border-transparent"
         )}
       >
         <div className="w-[250px]"></div>

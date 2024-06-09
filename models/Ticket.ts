@@ -1,3 +1,4 @@
+import { Priority, Status } from "@/constants";
 import mongoose, { Schema } from "mongoose";
 
 mongoose.connect(process.env.MONGODB_URI as string);
@@ -7,8 +8,8 @@ export interface Ticket extends mongoose.Document {
   title: string;
   assignTo: string[];
   description: string;
-  priority: string;
-  status: string;
+  priority: Priority | "";
+  status: Status | "";
   active: boolean;
   createdAt: string;
 }

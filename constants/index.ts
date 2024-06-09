@@ -1,3 +1,4 @@
+export type Priority = "Low" | "Medium" | "High";
 export const priorities = [
   {
     value: "Low",
@@ -13,4 +14,5 @@ export const priorities = [
   }
 ];
 
-export const statuses = ["Not Started", "Started", "Done"];
+export type Status = "Not Started" | "Started" | "Done";
+export const statuses: Status[] = ["Not Started", "Started", "Done"];

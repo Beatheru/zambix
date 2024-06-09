@@ -1,7 +1,8 @@
+import { Status } from "@/constants";
 import { cn } from "@/lib/utils";
 
 interface Props {
-  status: string;
+  status: Status;
 }
 
 const StatusDisplay = ({ status }: Props) => {

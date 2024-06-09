@@ -4,9 +4,10 @@ import { Ticket } from "@/models/Ticket";
 import { CirclePlus } from "lucide-react";
 import { useState } from "react";
 import TicketFormModal from "./TicketFormModal";
+import { Status } from "@/constants";
 
 interface Props {
-  status: string;
+  status: Status;
 }
 
 const AddIcon = ({ status }: Props) => {

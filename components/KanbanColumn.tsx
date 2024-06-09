@@ -1,12 +1,13 @@
 import AddIcon from "@/components/AddIcon";
 import TicketCard from "@/components/TicketCard";
+import { Status } from "@/constants";
 import { cn } from "@/lib/utils";
 import { Ticket } from "@/models/Ticket";
 import { useDroppable } from "@dnd-kit/core";
 
 interface Props {
   id: string | number;
-  status: string;
+  status: Status;
   tickets: Ticket[];
 }
 

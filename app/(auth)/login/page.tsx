@@ -1,8 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -20,12 +17,15 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { loginFormSchema } from "@/models/FormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import Link from "next/link";
-import Spinner from "@/components/Spinner";
-import { loginFormSchema } from "@/models/FormSchema";
 
 const Error = ({ error }: { error: string }) => {
   if (error) return <div className="text-center text-red-500">{error}</div>;
@@ -116,7 +116,7 @@ const LoginPage = () => {
 
           <CardFooter className="flex flex-col items-center gap-4">
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? <Spinner size={25} /> : "Login"}
+              {loading ? <Loader2 className="animate-spin" /> : "Login"}
             </Button>
 
             <div className="flex text-sm">

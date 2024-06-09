@@ -1,6 +1,5 @@
 "use client";
 
-import Spinner from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -53,6 +52,7 @@ import { faCheck, faSort } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CommandList } from "cmdk";
+import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -213,7 +213,7 @@ const TicketFormModal = ({ open, setOpen, ticket, initialState }: Props) => {
                             />
                             {userListLoading ? (
                               <div className="flex justify-center py-6 text-sm">
-                                <Spinner size={25} />
+                                <Loader2 className="animate-spin" />
                               </div>
                             ) : (
                               <CommandEmpty>No users found.</CommandEmpty>
@@ -335,7 +335,7 @@ const TicketFormModal = ({ open, setOpen, ticket, initialState }: Props) => {
 
                 <Button type="submit" disabled={loading}>
                   {loading ? (
-                    <Spinner size={25} />
+                    <Loader2 className="animate-spin" />
                   ) : isEditing ? (
                     "Update Ticket"
                   ) : (

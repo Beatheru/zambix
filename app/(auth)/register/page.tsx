@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,14 +17,15 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { registerUser } from "@/lib/actions";
+import { registerFormSchema } from "@/models/FormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { registerUser } from "@/lib/actions";
-import Spinner from "@/components/Spinner";
-import { registerFormSchema } from "@/models/FormSchema";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 const Error = ({ error }: { error: string }) => {
   if (error) return <div className="text-center text-red-500">{error}</div>;
@@ -113,7 +113,7 @@ const RegisterPage = () => {
           </CardContent>
           <CardFooter className="flex flex-col items-center gap-4">
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? <Spinner size={25} /> : "Create"}
+              {loading ? <Loader2 className="animate-spin" /> : "Create"}
             </Button>
 
             <div className="flex text-sm">

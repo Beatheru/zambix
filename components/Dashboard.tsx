@@ -1,12 +1,12 @@
 "use client";
 
 import KanbanColumn from "@/components/KanbanColumn";
-import Spinner from "@/components/Spinner";
 import { statuses } from "@/constants";
 import { editTicket, getTickets } from "@/lib/actions";
 import { MouseSensor, TouchSensor } from "@/lib/sensors";
 import { useTicketStore } from "@/lib/store";
 import { DndContext, DragEndEvent, useSensor, useSensors } from "@dnd-kit/core";
+import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
@@ -46,7 +46,7 @@ const Dashboard = () => {
   if (loading)
     return (
       <div className="flex flex-grow items-center justify-center">
-        <Spinner size={50} />
+        <Loader2 size={50} className="animate-spin" />
       </div>
     );
 

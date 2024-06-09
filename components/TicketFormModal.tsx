@@ -54,7 +54,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CommandList } from "cmdk";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -71,6 +70,7 @@ const TicketFormModal = ({ open, setOpen, ticket, initialState }: Props) => {
   const isEditing = !!ticket;
   const setTickets = useTicketStore((state) => state.setTickets);
   const { data: session } = useSession();
+  const [loading, setLoading] = useState(false);
 
   const [userListOpen, setUserListOpen] = useState(false);
   const [userListLoading, setUserListLoading] = useState(false);
@@ -99,12 +99,15 @@ const TicketFormModal = ({ open, setOpen, ticket, initialState }: Props) => {
   };
 
   const onSubmit = async (values: z.infer<typeof ticketFormSchema>) => {
+    setLoading(true);
     let err = null;
     if (isEditing) {
       err = await editTicket(ticket!._id, values);
     } else {
       err = await createTicket(values);
     }
+
+    setLoading(false);
 
     if (err) {
       console.log(err);
@@ -330,8 +333,14 @@ const TicketFormModal = ({ open, setOpen, ticket, initialState }: Props) => {
                   )}
                 />
 
-                <Button type="submit">
-                  {isEditing ? "Update Ticket" : "Create Ticket"}
+                <Button type="submit" disabled={loading}>
+                  {loading ? (
+                    <Spinner size={25} />
+                  ) : isEditing ? (
+                    "Update Ticket"
+                  ) : (
+                    "Create Ticket"
+                  )}
                 </Button>
               </form>
             </Form>

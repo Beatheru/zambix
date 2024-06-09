@@ -115,7 +115,7 @@ const LoginPage = () => {
           </CardContent>
 
           <CardFooter className="flex flex-col items-center gap-4">
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" disabled={loading}>
               {loading ? <Spinner size={25} /> : "Login"}
             </Button>
 

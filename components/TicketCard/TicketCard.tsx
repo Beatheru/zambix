@@ -3,7 +3,7 @@ import { Ticket } from "@/models/Ticket";
 import { useDraggable } from "@dnd-kit/core";
 import MenuIcon from "./MenuIcon";
 import { priorities } from "@/constants";
-import TicketFormModal from "./TicketFormModal";
+import TicketFormModal from "../TicketFormModal";
 import { useState } from "react";
 
 interface Props {

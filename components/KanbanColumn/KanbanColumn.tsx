@@ -1,5 +1,5 @@
-import AddIcon from "@/components/AddIcon";
-import TicketCard from "@/components/TicketCard";
+import AddIcon from "@/components/KanbanColumn/AddIcon";
+import TicketCard from "@/components/TicketCard/TicketCard";
 import { Status } from "@/constants";
 import { cn } from "@/lib/utils";
 import { Ticket } from "@/models/Ticket";

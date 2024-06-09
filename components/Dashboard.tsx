@@ -1,6 +1,6 @@
 "use client";
 
-import KanbanColumn from "@/components/KanbanColumn";
+import KanbanColumn from "@/components/KanbanColumn/KanbanColumn";
 import { statuses } from "@/constants";
 import { editTicket, getTickets } from "@/lib/actions";
 import { MouseSensor, TouchSensor } from "@/lib/sensors";

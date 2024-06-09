@@ -20,12 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark">
-          <AuthProvider>
-            <Toaster position="top-center" expand={true} richColors />
-            {children}
-          </AuthProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <Toaster position="top-center" expand={true} richColors />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

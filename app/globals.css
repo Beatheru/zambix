@@ -8,29 +8,6 @@ input[aria-invalid="true"] {
 
 @layer base {
   :root {
-    --background: 262 0% 95%;
-    --foreground: 262 0% 0%;
-    --card: 262 0% 90%;
-    --card-foreground: 262 0% 10%;
-    --popover: 262 0% 95%;
-    --popover-foreground: 262 95% 0%;
-    --primary: 262 78% 50%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 262 10% 70%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 224 10% 85%;
-    --muted-foreground: 262 0% 35%;
-    --accent: 224 10% 80%;
-    --accent-foreground: 262 0% 10%;
-    --destructive: 0 50% 30%;
-    --destructive-foreground: 262 0% 90%;
-    --border: 262 20% 50%;
-    --input: 262 20% 18%;
-    --ring: 262 78% 50%;
-    --radius: 0.75rem;
-  }
-
-  .dark {
     --background: 262 10% 5%;
     --foreground: 262 0% 90%;
     --card: 262 0% 0%;

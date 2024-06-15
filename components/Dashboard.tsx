@@ -5,7 +5,13 @@ import { statuses } from "@/constants";
 import { editTicket, getTickets } from "@/lib/actions";
 import { MouseSensor, TouchSensor } from "@/lib/sensors";
 import { useTicketStore } from "@/lib/store";
-import { DndContext, DragEndEvent, useSensor, useSensors } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  PointerSensor,
+  useSensor,
+  useSensors
+} from "@dnd-kit/core";
 import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -19,7 +25,12 @@ const Dashboard = () => {
 
   const mouseSensor = useSensor(MouseSensor);
   const touchSensor = useSensor(TouchSensor);
-  const sensors = useSensors(mouseSensor, touchSensor);
+  const distanceSensor = useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 5
+    }
+  });
+  const sensors = useSensors(mouseSensor, touchSensor, distanceSensor);
 
   useEffect(() => {
     if (session?.user.username) {

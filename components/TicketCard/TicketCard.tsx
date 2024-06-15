@@ -51,6 +51,7 @@ const TicketCard = ({ ticket }: Props) => {
         style={style}
         {...listeners}
         {...attributes}
+        onClick={openTicketModal}
       >
         <div className="absolute right-3 top-3">
           <MenuIcon id={ticket._id} openTicketModal={openTicketModal} />
